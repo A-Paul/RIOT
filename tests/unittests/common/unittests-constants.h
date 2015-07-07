@@ -61,6 +61,42 @@ extern "C" {
 #define TEST_INT TEST_INT32
 #endif
 
+
+/*
+ * ng_ipv6_addr.h
+ */
+
+/*
+ * ng_ipv6_hdr.h
+ */
+/* Until refs in ng_ipv6_hdr.c are refactored */
+#define DEFAULT_TEST_SRC TEST_ADDR6_1
+  
+#define TEST_ADDR6_1    { {					    \
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, \
+            0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f \
+        } \
+    }
+
+/* Until refs in ng_ipv6_hdr.c are refactored */
+#define DEFAULT_TEST_DST TEST_ADDR6_2
+  
+#define TEST_ADDR6_2    { { \
+            0x10, 0x11, 0x12, 0x13, 0x14, 0x15, 0x16, 0x17, \
+            0x18, 0x19, 0x1a, 0x1b, 0x1c, 0x1d, 0x1e, 0x1f \
+        } \
+    }
+  
+  
+/*
+ * ng_ipv6_nc.h
+ */
+
+/*
+ * ng_ipv6_netif.h
+ */
+
+
 #ifdef __cplusplus
 }
 #endif
