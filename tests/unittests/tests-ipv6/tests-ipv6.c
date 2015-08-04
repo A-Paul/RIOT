@@ -41,11 +41,12 @@ static void tear_down(void)
  * Tests for function "ng_ipv6_init"
  */
 
-/*
+/*!
  * Tests normal case.
  *
- * Pre: No IPV6 thread has been initialized.
- * Post: One single IPV6 thread has been initialized.
+ * \pre No IPV6 thread has been initialized.
+ * \post One single IPV6 thread has been initialized.
+ *
  * ENHANCE:
  *   - Provide check for existece of thread.
  *   - Provide check if pid didn't exist before..
@@ -62,10 +63,12 @@ static void test_ipv6_init__first(void)
                         errstr);
 }
 
-/* Tests check for error condition 1
+/*!
+ * Tests check for error condition 1
  *
- * Pre: IPV6 thread has already been initialized.
- * Post: No new IPV6 thread has already been initialized.
+ * \pre IPV6 thread has already been initialized.
+ * \post No new IPV6 thread has already been initialized.
+ *
  * ENHANCE:
  *   - Provide check for uniqueness of first thread.
  */
@@ -83,13 +86,15 @@ static void test_ipv6_init__uniq(void)
                         errstr);
 }
 
-/* Deferred!
+/*!
  * Tests recognition for error condition 2.
+ * Deferred!
  *
- * Pre: No IPV6 thread has been initialized and MAXTHREADS threads already
+ * \pre: No IPV6 thread has been initialized and MAXTHREADS threads already
  *       exist.
- * Post: No IPV6 thread has been initialized.
- * TODO:
+ * \post: No IPV6 thread has been initialized.
+ *
+ * \todo
  *   - Remove thread from former test.
  *   - Controlled creation of precondition.
  */
@@ -110,9 +115,9 @@ static void test_ipv6_init__maxthr(void)
  */
 
 /* Deferred!
- * Pre: ...
- * Post: ....
- * TODO:
+ * \pre: ...
+ * \post: ....
+ * \todo:
  *   - Provide specification of function behaviour, pre- and postconditions.
  *   - Provide (in)valid values for function parameters.
  */
