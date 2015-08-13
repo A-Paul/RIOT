@@ -22,7 +22,7 @@
 #include "net/ng_ipv6.h"
 
 #include "unittests-constants.h"
-#include "tests-ipv6.h"
+#include "../tests-ipv6.h"
 
 
 static void set_up(void)
@@ -86,66 +86,13 @@ static void test_ipv6_init__uniq(void)
                         errstr);
 }
 
-/*!
- * Tests recognition for error condition 2.
- * Deferred!
- *
- * \pre: No IPV6 thread has been initialized and MAXTHREADS threads already
- *       exist.
- * \post: No IPV6 thread has been initialized.
- *
- * \todo
- *   - Remove thread from former test.
- *   - Controlled creation of precondition.
- */
-static void test_ipv6_init__maxthr(void)
-{
-    const char *errstr = "!Test insufficient.!";
-    kernel_pid_t retval = KERNEL_PID_UNDEF;
-
-    retval = ng_ipv6_init();
-
-    TEST_ASSERT_MESSAGE(-EOVERFLOW == retval,
-                        errstr);
-}
-
-
-/*
- * Tests for function "ng_ipv6_init"
- */
-
-/* Deferred!
- * \pre: ...
- * \post: ....
- * \todo:
- *   - Provide specification of function behaviour, pre- and postconditions.
- *   - Provide (in)valid values for function parameters.
- */
-static void test_ipv6_demux__stub1(void)
-{
-    const char *errstr = "!Test insufficient.!";
-    kernel_pid_t iface = KERNEL_PID_UNDEF;
-    ng_pktsnip_t  *pkt = NULL;
-    uint8_t         nh = 0;
-
-    iface = ng_ipv6_init();
-    ng_ipv6_demux(iface, pkt, nh);
-
-    TEST_ASSERT_MESSAGE(NULL == pkt,
-                        errstr);
-}
-
 
 Test *tests_ipv6_tests(void)
 {
-    EMB_UNIT_TESTFIXTURES(fixtures) {
-        new_TestFixture(test_ipv6_init__first),
-                        new_TestFixture(test_ipv6_init__uniq)
-                        /* Deferred, See function comments.
-                          new_TestFixture(test_ipv6_init__maxthr),
-                          new_TestFixture(test_ipv6_demux__stub1)
-                         */
-    };
+  EMB_UNIT_TESTFIXTURES(fixtures) {
+      new_TestFixture(test_ipv6_init__first),
+	new_TestFixture(test_ipv6_init__uniq)
+	};
 
     EMB_UNIT_TESTCALLER(ipv6_tests, set_up, tear_down, fixtures);
 
