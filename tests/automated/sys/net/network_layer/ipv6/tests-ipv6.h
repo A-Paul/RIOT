@@ -6,12 +6,12 @@
  * directory for more details.
  */
 
-/**
- * @addtogroup  unittests
+/*!
+ * \defgroup  tests-ipv6 Testing IPV6 module
  * @{
  *
  * @file
- * @brief       Unittests for the ``ng_ipv6`` module
+ * @brief       Unittests for the `ng_ipv6` module
  *
  * @author      Andreas "Paul" Pauli <andreas.pauli@haw-hamburg.de>
  */
@@ -24,10 +24,10 @@
 extern "C" {
 #endif
 
-/**
- * @brief   The entry point of this test suite.
+/*!
+ * \brief Collects all test cases of this test suite.
  */
-void tests_ipv6(void);
+Test* ipv6_tests(void);
 
 #ifdef __cplusplus
 }

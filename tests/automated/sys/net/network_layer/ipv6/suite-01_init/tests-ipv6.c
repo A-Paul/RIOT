@@ -6,7 +6,8 @@
  * directory for more details.
  */
 
-/**
+/*!
+ * \ingroup tests-ipv6
  * @{
  *
  * @file
@@ -21,7 +22,6 @@
 
 #include "net/ng_ipv6.h"
 
-#include "unittests-constants.h"
 #include "../tests-ipv6.h"
 
 
@@ -64,7 +64,7 @@ static void test_ipv6_init__first(void)
 }
 
 /*!
- * Tests check for error condition 1
+ * \brief Tests check for error condition 2
  *
  * \pre IPV6 thread has already been initialized.
  * \post No new IPV6 thread has already been initialized.
@@ -82,25 +82,20 @@ static void test_ipv6_init__uniq(void)
      */
     retval = ng_ipv6_init();
 
-    TEST_ASSERT_MESSAGE(EEXIST == retval,
+    TEST_ASSERT_MESSAGE( -EEXIST == retval,
                         errstr);
 }
 
 
-Test *tests_ipv6_tests(void)
+Test *ipv6_tests(void)
 {
-  EMB_UNIT_TESTFIXTURES(fixtures) {
-      new_TestFixture(test_ipv6_init__first),
-	new_TestFixture(test_ipv6_init__uniq)
-	};
+    EMB_UNIT_TESTFIXTURES(fixtures) {
+        new_TestFixture(test_ipv6_init__first),
+                        new_TestFixture(test_ipv6_init__uniq)
+    };
 
     EMB_UNIT_TESTCALLER(ipv6_tests, set_up, tear_down, fixtures);
 
     return (Test *)&ipv6_tests;
-}
-
-void tests_ipv6(void)
-{
-    TESTS_RUN(tests_ipv6_tests());
 }
 /** @} */

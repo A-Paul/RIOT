@@ -6,7 +6,8 @@
  * directory for more details.
  */
 
-/**
+/*!
+ * \ingroup tests-ipv6
  * @{
  *
  * @file
@@ -21,13 +22,12 @@
 
 #include "net/ng_ipv6.h"
 
-#include "unittests-constants.h"
 #include "../tests-ipv6.h"
 
 
 static void set_up(void)
 {
-  ;
+    ;
 }
 
 
@@ -35,11 +35,6 @@ static void tear_down(void)
 {
     ;
 }
-
-
-/*
- * Tests for function "ng_ipv6_init"
- */
 
 
 /*
@@ -68,19 +63,14 @@ static void test_ipv6_demux__stub1(void)
 }
 
 
-Test *tests_ipv6_tests(void)
+Test *ipv6_tests(void)
 {
-  EMB_UNIT_TESTFIXTURES(fixtures) {
-    new_TestFixture(test_ipv6_demux__stub1)
-      };
+    EMB_UNIT_TESTFIXTURES(fixtures) {
+        new_TestFixture(test_ipv6_demux__stub1)
+    };
 
     EMB_UNIT_TESTCALLER(ipv6_tests, set_up, tear_down, fixtures);
 
     return (Test *)&ipv6_tests;
-}
-
-void tests_ipv6(void)
-{
-    TESTS_RUN(tests_ipv6_tests());
 }
 /** @} */
