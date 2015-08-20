@@ -6,8 +6,8 @@
  * directory for more details.
  */
 
-/*!
- * \ingroup tests-ipv6
+/**
+ * @ingroup tests-ipv6
  * @{
  *
  * @file
@@ -41,15 +41,15 @@ static void tear_down(void)
  * Tests for function "ng_ipv6_init"
  */
 
-/*!
+/**
  * Tests recognition for error condition 2.
  * Deferred!
  *
- * \pre: No IPV6 thread has been initialized and MAXTHREADS threads already
+ * @pre: No IPV6 thread has been initialized and MAXTHREADS threads already
  *       exist.
- * \post: No IPV6 thread has been initialized.
+ * @post: No IPV6 thread has been initialized.
  *
- * \todo
+ * @todo
  *   - Remove thread from former test.
  *   - Controlled creation of precondition.
  */
@@ -75,11 +75,4 @@ Test *ipv6_tests(void)
 
     return (Test *)&ipv6_tests;
 }
-
-/*
-void tests_ipv6(void)
-{
-    TESTS_RUN(tests_ipv6_tests());
-}
-*/
 /** @} */

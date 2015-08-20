@@ -6,8 +6,8 @@
  * directory for more details.
  */
 
-/*!
- * \ingroup tests-ipv6
+/**
+ * @ingroup tests-ipv6
  * @{
  *
  * @file
@@ -41,10 +41,11 @@ static void tear_down(void)
  * Tests for function "ng_ipv6_init"
  */
 
-/* Deferred!
- * \pre: ...
- * \post: ....
- * \todo:
+/**
+ * Deferred!
+ * @pre: ...
+ * @post: ....
+ * @todo:
  *   - Provide specification of function behaviour, pre- and postconditions.
  *   - Provide (in)valid values for function parameters.
  */

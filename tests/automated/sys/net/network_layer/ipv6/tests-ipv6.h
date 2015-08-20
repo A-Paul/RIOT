@@ -6,8 +6,8 @@
  * directory for more details.
  */
 
-/*!
- * \defgroup  tests-ipv6 Testing IPV6 module
+/**
+ * @defgroup  tests-ipv6 Testing IPV6 module
  * @{
  *
  * @file
@@ -24,8 +24,8 @@
 extern "C" {
 #endif
 
-/*!
- * \brief Collects all test cases of this test suite.
+/**
+ * @brief Collects all test cases of this test suite.
  */
 Test* ipv6_tests(void);
 

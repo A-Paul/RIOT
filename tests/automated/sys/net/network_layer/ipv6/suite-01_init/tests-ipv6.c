@@ -6,8 +6,8 @@
  * directory for more details.
  */
 
-/*!
- * \ingroup tests-ipv6
+/**
+ * @ingroup tests-ipv6
  * @{
  *
  * @file
@@ -41,11 +41,11 @@ static void tear_down(void)
  * Tests for function "ng_ipv6_init"
  */
 
-/*!
- * Tests normal case.
+/**
+ * @brief Tests normal case.
  *
- * \pre No IPV6 thread has been initialized.
- * \post One single IPV6 thread has been initialized.
+ * @pre No IPV6 thread has been initialized.
+ * @post One single IPV6 thread has been initialized.
  *
  * ENHANCE:
  *   - Provide check for existece of thread.
@@ -63,11 +63,11 @@ static void test_ipv6_init__first(void)
                         errstr);
 }
 
-/*!
- * \brief Tests check for error condition 2
+/**
+ * @brief Tests check for error condition 2
  *
- * \pre IPV6 thread has already been initialized.
- * \post No new IPV6 thread has already been initialized.
+ * @pre IPV6 thread has already been initialized.
+ * @post No new IPV6 thread has already been initialized.
  *
  * ENHANCE:
  *   - Provide check for uniqueness of first thread.
