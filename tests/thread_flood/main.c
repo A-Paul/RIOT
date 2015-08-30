@@ -25,9 +25,9 @@
 #include "thread.h"
 #include "lpm.h"
 
+/* One stack for all threads. DON'T TRY THIS AT HOME!! */
 char dummy_stack[THREAD_STACKSIZE_DEFAULT];
 
-/* One stack for all threads. DON'T TRY THIS AT HOME!! */
 void *thread_func(void *arg)
 {
     return arg;
