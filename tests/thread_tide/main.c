@@ -27,22 +27,27 @@
 #include "lpm.h"
 
 /* One stack for all threads. DON'T TRY THIS AT HOME!! */
-char dummy_stack[THREAD_STACKSIZE_DEFAULT];
+char dummy_stack[MAXTHREADS][THREAD_STACKSIZE_DEFAULT];
+kernel_pid_t threads[MAXTHREADS] = { KERNEL_PID_UNDEF };
 
 void *thread_func(void *arg)
 {
+    puts(".\n");
     return arg;
 }
 
 int main(void)
 {
+    int count = 0;
     kernel_pid_t thr_id = KERNEL_PID_UNDEF;
     puts("Start spawning\n");
     do {
-        thr_id = thread_create(
-                     dummy_stack, sizeof(dummy_stack),
-                     THREAD_PRIORITY_MAIN - 1, CREATE_SLEEPING | CREATE_STACKTEST,
-                     thread_func, NULL, "dummy");
+        threads[count] = thread_create(
+                             dummy_stack[count], sizeof(*dummy_stack),
+                             THREAD_PRIORITY_MAIN - 1, CREATE_SLEEPING | CREATE_STACKTEST,
+                             thread_func, NULL, "dummy");
+        thr_id = threads[count];
+        ++count;
     }
     while (-EOVERFLOW != thr_id);
 
@@ -50,8 +55,17 @@ int main(void)
         puts("Thread creation successful aborted\n");
     }
 
-    if (0) {
-      puts("Created threads successful removed\n");
+    printf("Threads created: %d\n", count);
+    count = 0;
+
+    while (-EOVERFLOW != threads[count]) {
+        thread_wakeup(threads[count]);
+        ++count;
+    }
+
+
+    if (0 == count) {
+        puts("Created threads successful removed\n");
     }
     lpm_set(LPM_OFF);
     return 0;
