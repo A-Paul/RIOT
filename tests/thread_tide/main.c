@@ -14,6 +14,7 @@
  * @brief Thread flooding test.
  *
  * Spawns sleeping threads till the scheduler's capacity is exhausted.
+ * And remove them afterwards
  *
  * @author  Andreas "Paul" Pauli <andreas.pauli@haw-hamburg.de>
  *
@@ -47,6 +48,10 @@ int main(void)
 
     if (-EOVERFLOW == thr_id) {
         puts("Thread creation successful aborted\n");
+    }
+
+    if (0) {
+      puts("Created threads successful removed\n");
     }
     lpm_set(LPM_OFF);
     return 0;
