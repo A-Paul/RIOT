@@ -38,33 +38,41 @@ void *thread_func(void *arg)
 
 int main(void)
 {
-    int count = 0;
+    int thr_count = 0;
+    int thr_remain = 0;
     kernel_pid_t thr_id = KERNEL_PID_UNDEF;
+
+    /* pexpect waypoint */
     puts("Start spawning\n");
+
     do {
-        threads[count] = thread_create(
-                             dummy_stack[count], sizeof(*dummy_stack),
+        threads[thr_count] = thread_create(
+                             dummy_stack[thr_count], sizeof(*dummy_stack),
                              THREAD_PRIORITY_MAIN - 1, CREATE_SLEEPING | CREATE_STACKTEST,
                              thread_func, NULL, "dummy");
-        thr_id = threads[count];
-        ++count;
+        thr_id = threads[thr_count];
+        ++thr_count;
     }
     while (-EOVERFLOW != thr_id);
 
+    /* pexpect waypoint */
     if (-EOVERFLOW == thr_id) {
         puts("Thread creation successful aborted\n");
+	thr_remain = thr_count - 1;
     }
 
-    printf("Threads created: %d\n", count);
-    count = 0;
+    printf("Threads created: %d\n", thr_count);
+    thr_count = 0;
 
-    while (-EOVERFLOW != threads[count]) {
-        thread_wakeup(threads[count]);
-        ++count;
+    while (-EOVERFLOW != threads[thr_count]) {
+        thread_wakeup(threads[thr_count]);
+        ++thr_count;
+	--thr_remain;
     }
 
 
-    if (0 == count) {
+    /* pexpect waypoint */
+    if (0 == thr_remain) {
         puts("Created threads successful removed\n");
     }
     lpm_set(LPM_OFF);
