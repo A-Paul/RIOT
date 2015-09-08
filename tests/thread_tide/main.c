@@ -26,7 +26,6 @@
 #include "thread.h"
 #include "lpm.h"
 
-/* One stack for all threads. DON'T TRY THIS AT HOME!! */
 char dummy_stack[MAXTHREADS][THREAD_STACKSIZE_DEFAULT];
 kernel_pid_t threads[MAXTHREADS] = { KERNEL_PID_UNDEF };
 
@@ -47,9 +46,10 @@ int main(void)
 
     do {
         threads[thr_count] = thread_create(
-                             dummy_stack[thr_count], sizeof(*dummy_stack),
-                             THREAD_PRIORITY_MAIN - 1, CREATE_SLEEPING | CREATE_STACKTEST,
-                             thread_func, NULL, "dummy");
+                                 dummy_stack[thr_count], sizeof(*dummy_stack),
+                                 THREAD_PRIORITY_MAIN - 1,
+                                 CREATE_SLEEPING | CREATE_STACKTEST,
+                                 thread_func, NULL, "dummy");
         thr_id = threads[thr_count];
         ++thr_count;
     }
@@ -58,7 +58,7 @@ int main(void)
     /* pexpect waypoint */
     if (-EOVERFLOW == thr_id) {
         puts("Thread creation successful aborted\n");
-	thr_remain = thr_count - 1;
+        thr_remain = thr_count - 1;
     }
 
     printf("Threads created: %d\n", thr_count);
@@ -67,7 +67,7 @@ int main(void)
     while (-EOVERFLOW != threads[thr_count]) {
         thread_wakeup(threads[thr_count]);
         ++thr_count;
-	--thr_remain;
+        --thr_remain;
     }
 
 
