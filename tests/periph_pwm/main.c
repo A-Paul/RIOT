@@ -13,10 +13,7 @@
  * @file
  * @brief       Test for low-level PWM drivers
  *
- * This test initializes the given PWM device to run at 1KHz with a 1000 step resolution.
  *
- * The PWM is then continuously oscillating it's duty cycle between 0% to 100% every 1s on
- * every channel.
  *
  * @author      Hauke Petersen <hauke.petersen@fu-berlin.de>
  *
@@ -30,46 +27,57 @@
 #include "xtimer.h"
 #include "periph/pwm.h"
 
-#define WAIT        (10000)
-#define STEP        (10)
+#define WAIT        (400000)
 
 #define DEV         PWM_0
 #define CHANNELS    PWM_0_CHANNELS
 #define MODE        PWM_LEFT
 
-#define FREQU       (1000U)
-#define STEPS       (1000U)
-
+#define FREQU       (2U)
+#define STEPS       (3072U)
+#define STEP        (STEPS/16)
+#define OFFS        (STEPS/3)
 
 int main(void)
 {
-    int res;
-    int state = 0;
-    int step = STEP;
+  int ratio = 0;
+  int res   = 0;
+  int state = 0;
+  int step  = STEP;
 
-    puts("\nRIOT PWM test");
-    puts("Connect an LED or scope to PWM pins to see something");
+  puts("\nRIOT PWM test");
+  puts("Connect an LED or scope to PWM pins to see something");
 
-    res = pwm_init(DEV, MODE, FREQU, STEPS);
-    if (res < 0) {
-        puts("Errors while initializing PWM");
-        return -1;
+  res = pwm_init(DEV, MODE, FREQU, STEPS);
+
+  if (res < 0) {
+
+
+    puts("Errors while initializing PWM");
+    return -1;
+  }
+
+  puts("PWM initialized.");
+  printf("requested: %d Hz, got %d Hz\n", FREQU, res);
+
+  while (1) {
+
+    puts("{R,G,B}:");
+    for (int i = 0; i < CHANNELS; i++) {
+      ratio = (state + i * OFFS) % STEPS;
+      pwm_set(DEV, i, ratio);
+      printf("|%04d", ratio);
     }
-    puts("PWM initialized.");
-    printf("requested: %d Hz, got %d Hz\n", FREQU, res);
+    puts("|");
 
-    while (1) {
-        for (int i = 0; i < CHANNELS; i++) {
-            pwm_set(DEV, i, state);
-        }
-
-        state += step;
-        if (state <= 0 || state >= STEPS) {
-            step = -step;
-        }
-
-        xtimer_usleep(WAIT);
+    state += step;
+    if (state < STEP || state > (STEPS - STEP)) {
+      step  = -step;
+      state += step;
     }
 
-    return 0;
+    xtimer_usleep(WAIT);
+  }
+
+  return 0;
 }
