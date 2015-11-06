@@ -352,26 +352,22 @@ extern "C" {
 #define PWM_MAX_VALUE       (0xffff)
 #define PWM_MAX_CHANNELS    (4U)
 
-/* PWM_0 configuration */
+/* PWM_0 configuration      Modified for NdW-2015 */
 #define PWM_0_DEV           PWM
 #define PWM_0_PID           ID_PWM
-#define PWM_0_CHANNELS      (4U)
-#define PWM_0_DEV_CH0       (&(PWM_0_DEV->PWM_CH_NUM[4]))
-#define PWM_0_ENA_CH0       PWM_ENA_CHID4
+#define PWM_0_CHANNELS      (3U)
+#define PWM_0_DEV_CH0       (&(PWM_0_DEV->PWM_CH_NUM[5]))
+#define PWM_0_ENA_CH0       PWM_ENA_CHID5
 #define PWM_0_PORT_CH0      PIOC
-#define PWM_0_PIN_CH0       PIO_PC21B_PWML4
-#define PWM_0_DEV_CH1       (&(PWM_0_DEV->PWM_CH_NUM[5]))
-#define PWM_0_ENA_CH1       PWM_ENA_CHID5
+#define PWM_0_PIN_CH0       PIO_PC22B_PWML5
+#define PWM_0_DEV_CH1       (&(PWM_0_DEV->PWM_CH_NUM[6]))
+#define PWM_0_ENA_CH1       PWM_ENA_CHID6
 #define PWM_0_PORT_CH1      PIOC
-#define PWM_0_PIN_CH1       PIO_PC22B_PWML5
-#define PWM_0_DEV_CH2       (&(PWM_0_DEV->PWM_CH_NUM[6]))
-#define PWM_0_ENA_CH2       PWM_ENA_CHID6
+#define PWM_0_PIN_CH1       PIO_PC23B_PWML6
+#define PWM_0_DEV_CH2       (&(PWM_0_DEV->PWM_CH_NUM[7]))
+#define PWM_0_ENA_CH2       PWM_ENA_CHID7
 #define PWM_0_PORT_CH2      PIOC
-#define PWM_0_PIN_CH2       PIO_PC23B_PWML6
-#define PWM_0_DEV_CH3       (&(PWM_0_DEV->PWM_CH_NUM[7]))
-#define PWM_0_ENA_CH3       PWM_ENA_CHID7
-#define PWM_0_PORT_CH3      PIOC
-#define PWM_0_PIN_CH3       PIO_PC24B_PWML7
+#define PWM_0_PIN_CH2       PIO_PC24B_PWML7
 /** @} */
 
 #ifdef __cplusplus
