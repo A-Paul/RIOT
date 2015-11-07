@@ -182,25 +182,23 @@ extern "C"
 /* PWM 0 pin configuration */
 #define PWM_0_PORT_CLKEN()  (SIM->SCGC5 |= (SIM_SCGC5_PORTD_MASK | SIM_SCGC5_PORTA_MASK))
 
+/* Adapted channel config to arduino-shield high current piggy-back
+   0,1,2 -> R,G,B
+ */
 #define PWM_0_PIN_CH0       4
 #define PWM_0_FTMCHAN_CH0   1
 #define PWM_0_PORT_CH0      PORTA
 #define PWM_0_PIN_AF_CH0    3
 
-#define PWM_0_PIN_CH1       4
-#define PWM_0_FTMCHAN_CH1   4
+#define PWM_0_PIN_CH1       6
+#define PWM_0_FTMCHAN_CH1   6
 #define PWM_0_PORT_CH1      PORTD
 #define PWM_0_PIN_AF_CH1    4
 
-#define PWM_0_PIN_CH2       6
-#define PWM_0_FTMCHAN_CH2   6
-#define PWM_0_PORT_CH2      PORTD
-#define PWM_0_PIN_AF_CH2    4
-
-#define PWM_0_PIN_CH3       1
-#define PWM_0_FTMCHAN_CH3   1
-#define PWM_0_PORT_CH3      PORTA
-#define PWM_0_PIN_AF_CH3    3
+#define PWM_0_PIN_CH2       2
+#define PWM_0_FTMCHAN_CH2   7
+#define PWM_0_PORT_CH2      PORTA
+#define PWM_0_PIN_AF_CH2    3
 /** @} */
 
 
