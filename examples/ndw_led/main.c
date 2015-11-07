@@ -13,7 +13,7 @@
  * @file
  * @brief       Test for low-level PWM drivers
  *
- * @author      Hauke Petersen <hauke.petersen@fu-berlin.de>
+ * @author      Andreas 'Paul' Pauli <andreas.pauli@haw-hamburg.de>
  *
  * @}
  */
@@ -31,7 +31,7 @@
 #define CHANNELS    PWM_0_CHANNELS
 #define MODE        PWM_LEFT
 
-#define FREQU       (20U)
+#define FREQU       (400U)
 #define STEPS       (3072U)
 #define STEP        (STEPS/16)
 #define OFFS        (STEPS/3)
@@ -42,6 +42,10 @@ int main(void)
     int res   = 0;
     int state = 0;
     int step  = STEP;
+
+
+    mma8652_t accmtr_dev;
+    i2c_t i2c_dev = 0;
 
     puts("\nRIOT PWM test");
     puts("Connect an LED or scope to PWM pins to see something");
@@ -56,11 +60,11 @@ int main(void)
     printf("requested: %d Hz, got %d Hz\n", FREQU, res);
 
     while (1) {
-        puts("{R,G,B}:");
+        printf("{R,G,B}:");
         for (int i = 0; i < CHANNELS; i++) {
             ratio = (state + i * OFFS) % STEPS;
             pwm_set(DEV, i, ratio);
-            printf("|%04d", ratio);
+            printf("|0x%04x", ratio);
         }
         puts("|");
 
