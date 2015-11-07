@@ -1,4 +1,4 @@
-# name of your application
+## name of your application
 export APPLICATION = ndw_led
 
 # If no BOARD is found in the environment, use this default:
