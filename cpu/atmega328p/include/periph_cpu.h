@@ -16,10 +16,13 @@
  *
  * @author          René Herthel <rene-herthel@outlook.de>
  * @author          Hauke Petersen <hauke.petersen@fu-berlin.de>
+ * @author          Andreas "Paul" Pauli <andreas.pauli@haw-hamburg.de>
  */
 
 #ifndef PERIPH_CPU_H
 #define PERIPH_CPU_H
+
+#include <stdint.h>
 
 #include "periph_cpu_common.h"
 
@@ -38,8 +41,26 @@ extern "C" {
 enum {
     PORT_B = 1,       /**< port B */
     PORT_C = 2,       /**< port C */
-    PORT_D = 3       /**< port D */
+    PORT_D = 3        /**< port D */
 };
+
+/**
+ * @brief   PWM channel configuration data structure
+ */
+typedef struct {
+//    gpio_t pin;                 /**< GPIO pin */
+//    gpio_mux_t mux;             /**< pin function multiplex value */
+    uint8_t chan;               /**< TCC channel to use */
+} pwm_conf_chan_t;
+
+/**
+ * @brief   PWM device configuration data structure
+ */
+typedef struct {
+//    Tcc *dev;                   /**< TCC device to use */
+    pwm_conf_chan_t chan[3];    /**< channel configuration */
+} pwm_conf_t;
+
 
 #ifdef __cplusplus
 }
