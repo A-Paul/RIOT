@@ -1,1 +1,1 @@
-FEATURES_PROVIDES += periph_pwm
+FEATURES_PROVIDED += periph_pwm
