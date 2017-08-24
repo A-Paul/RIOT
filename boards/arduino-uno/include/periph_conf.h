@@ -109,6 +109,7 @@ static const pwm_conf_t pwm_config[] = {
 
 /* number of devices that are actually defined */
 #define PWM_NUMOF           (1U)
+#define PWM_CHAN_NUMOF      (2U)
 /** @} */
 
 #define MEGA_PRR            PRR         /* Power Reduction Register is PRR */
