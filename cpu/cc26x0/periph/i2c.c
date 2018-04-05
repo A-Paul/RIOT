@@ -47,6 +47,8 @@ mutex_t irq_wait = MUTEX_INIT;
 
 static void _set_address(dev_t dev, uint8_t slave_address, bool read)
 {
+  /** @TODO remove compiler calming hack for "dev"*/
+  (void)dev;
     I2C->MSA = (slave_address << 1) | (read ? 1 : 0);
 }
 
@@ -91,6 +93,8 @@ static uint32_t _speed_t_to_scl_period(i2c_speed_t speed)
 
 static void _transmit_and_yield_until_done(dev_t dev, uint32_t command)
 {
+  /** @TODO remove compiler calming hack for "dev"*/
+  (void)dev;
 #ifndef CC26X0_I2C_NO_INTERRUPTS
     /* clear interrupt flag */
     I2C->MICR = I2C_MICR_IC;
