@@ -78,7 +78,7 @@
 #define IPHC_M_DAC_DAM_M_8          (0x0b)
 #define IPHC_M_DAC_DAM_M_UC_PREFIX  (0x0c)
 
-#define NHC_ID_MASK                 (0xF8)
+#define NHC_UDP_ID_MASK             (0xF8)
 #define NHC_UDP_ID                  (0xF0)
 #define NHC_UDP_PP_MASK             (0x03)
 #define NHC_UDP_SD_INLINE           (0x00)
@@ -520,19 +520,15 @@ void gnrc_sixlowpan_iphc_recv(gnrc_pktsnip_t *sixlo, void *rbuf_ptr,
 
 #ifdef MODULE_GNRC_SIXLOWPAN_IPHC_NHC
     if (iphc_hdr[IPHC1_IDX] & SIXLOWPAN_IPHC1_NH) {
-        switch (iphc_hdr[payload_offset] & NHC_ID_MASK) {
-            case NHC_UDP_ID: {
-                payload_offset = _iphc_nhc_udp_decode(sixlo, payload_offset,
-                                                      ipv6, &uncomp_hdr_len);
-                if (payload_offset == 0) {
-                    _recv_error_release(sixlo, ipv6, rbuf);
-                    return;
-                }
-                break;
+        if (NHC_UDP_ID == (iphc_hdr[payload_offset] & NHC_UDP_ID_MASK)) {
+            payload_offset = _iphc_nhc_udp_decode(sixlo, payload_offset,
+                                                  ipv6, &uncomp_hdr_len);
+            if (payload_offset == 0) {
+                _recv_error_release(sixlo, ipv6, rbuf);
+                return;
             }
-            default:
-                break;
         }
+        else if (true) {}
     }
 #endif
     uint16_t payload_len;
