@@ -78,8 +78,10 @@
 #define IPHC_M_DAC_DAM_M_8          (0x0b)
 #define IPHC_M_DAC_DAM_M_UC_PREFIX  (0x0c)
 
-#define NHC_UDP_ID_MASK             (0xF8)
-#define NHC_UDP_ID                  (0xF0)
+#define NHC_UDP_FORMAT              (0xF0)
+#define NHC_UDP_FMTMASK             (0xF8)
+#define NHC_EXT_FORMAT              (0xE0)
+#define NHC_EXT_FMTMASK             (0xF0)
 #define NHC_UDP_PP_MASK             (0x03)
 #define NHC_UDP_SD_INLINE           (0x00)
 #define NHC_UDP_S_INLINE            (0x01)
@@ -520,7 +522,7 @@ void gnrc_sixlowpan_iphc_recv(gnrc_pktsnip_t *sixlo, void *rbuf_ptr,
 
 #ifdef MODULE_GNRC_SIXLOWPAN_IPHC_NHC
     if (iphc_hdr[IPHC1_IDX] & SIXLOWPAN_IPHC1_NH) {
-        if (NHC_UDP_ID == (iphc_hdr[payload_offset] & NHC_UDP_ID_MASK)) {
+        if (NHC_UDP_FORMAT == (iphc_hdr[payload_offset] & NHC_UDP_FMTMASK)) {
             payload_offset = _iphc_nhc_udp_decode(sixlo, payload_offset,
                                                   ipv6, &uncomp_hdr_len);
             if (payload_offset == 0) {
@@ -528,9 +530,20 @@ void gnrc_sixlowpan_iphc_recv(gnrc_pktsnip_t *sixlo, void *rbuf_ptr,
                 return;
             }
         }
+        else if (NHC_EXT_FORMAT ==
+		 (iphc_hdr[payload_offset] & NHC_EXT_FMTMASK)) {}
+#ifdef MODULE_SIXLOWPAN_IPHC_NHC_GHC
+        else if (NHC_GHC_UDP_FORMAT ==
+		 (iphc_hdr[payload_offset] & NHC_GHC_UDP_FMTMASK)) {}
+        else if (NHC_GHC_ICMP_FORMAT ==
+		 (iphc_hdr[payload_offset] & NHC_GHC_ICMP_FMTMASK)) {}
+        else if (NHC_GHC_EXTHD_FORMAT ==
+		 (iphc_hdr[payload_offset] & NHC_GHC_EXTHD_FMTMASK)) {}
+#endif /* MODULE_SIXLOWPAN_IPHC_NHC_GHC */
         else if (true) {}
     }
-#endif
+#endif /* MODULE_GNRC_SIXLOWPAN_IPHC_NHC */
+
     uint16_t payload_len;
     if (rbuf != NULL) {
         /* for a fragmented datagram we know the overall length already */
@@ -578,7 +591,7 @@ static inline size_t iphc_nhc_udp_encode(uint8_t *nhc_data,
 
     /* Set UDP NHC header type
      * (see https://tools.ietf.org/html/rfc6282#section-4.3). */
-    nhc_data[0] = NHC_UDP_ID;
+    nhc_data[0] = NHC_UDP_FORMAT;
     /* Compressing UDP ports, follow the same sequence as the linux kernel (nhc_udp module). */
     if (((src_port & NHC_UDP_4BIT_MASK) == NHC_UDP_4BIT_PORT) &&
         ((dst_port & NHC_UDP_4BIT_MASK) == NHC_UDP_4BIT_PORT)) {
