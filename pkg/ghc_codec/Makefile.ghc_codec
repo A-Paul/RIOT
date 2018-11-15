@@ -1,0 +1,5 @@
+MODULE := ghc_codec
+
+SRC += ghc_decode.c ghc_encode-$(GHC_ENCODER_IMPL).c
+
+include $(RIOTBASE)/Makefile.base

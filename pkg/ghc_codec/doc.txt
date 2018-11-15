@@ -1,0 +1,8 @@
+/**
+ * @defgroup pkg_ghc_codec RFC 7400 GHC
+ * @ingroup  pkg
+ * @ingroup  net
+ * @brief    Provides Generic Header Compression (GHC) en/decoding
+ * @see      https://github.com/A-Paul/ghc_codec
+ * @see      https://tools.ietf.org/rfc/rfc7400.txt
+ */

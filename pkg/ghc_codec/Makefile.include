@@ -1,0 +1,19 @@
+#show-vars1:
+#	@echo ".oO0Oo. Makefile.include START"
+
+#include $(RIOTBASE)/pkg/pkg.mk
+
+INCLUDES += -I$(PKGDIRBASE)/ghc_codec/include
+# !!!Automatically triggers build in this directory
+#DIRS += $(PKGDIRBASE)/ghc_codec/src
+# Here or in Makefile.$(PKG_NAME)?
+#SRC += $(PKGDIRBASE)/ghc_codec/src/ghc_decode.c
+#SRC += src/ghc_decode.c src/ghc_encode-naive.c
+LOC_PROBE += Makefile.include
+
+.PHONY: show-vars1 show-vars2
+
+#show-vars2:
+#	@echo :PKGDIRBASE:$(PKGDIRBASE):
+#	@echo :PKG_BUILDDIR:$(PKG_BUILDDIR):
+#	@echo ".oO0Oo. Makefile.include STOP"
