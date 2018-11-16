@@ -21,9 +21,6 @@ BOARD_WHITELIST := airfy-beacon avsextrem \
                    stm32f3discovery stm32f4discovery telosb udoo waspmote-pro \
                    wsn430-v1_3b wsn430-v1_4 yunjia-nrf51822 z1 native
 
-GHC_ENCODER_IMPL := naive
-export GHC_ENCODER_IMPL
-
-USEPKG += ghc_codec
+USEMODULE += gnrc_sixlowpan_ghc
 
 include $(RIOTBASE)/Makefile.include

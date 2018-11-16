@@ -1,6 +1,10 @@
-PKG_NAME=	ghc_codec
-PKG_URL=	https://github.com/A-Paul/ghc_codec.git
-PKG_VERSION=	631d33504b25258cd4a048f72f6dffec3af48939
+PKG_NAME    = ghc_codec
+PKG_URL     = https://github.com/A-Paul/ghc_codec.git
+PKG_VERSION = 631d33504b25258cd4a048f72f6dffec3af48939
+PKG_LICENSE = LGPLv2.1
+
+GHC_ENCODER_IMPL ?= naive
+export GHC_ENCODER_IMPL
 
 .PHONY: all
 #.IGNORE: all
